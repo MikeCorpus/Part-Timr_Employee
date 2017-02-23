@@ -72,6 +72,7 @@ class AuthProvider {
         if FIRAuth.auth()?.currentUser != nil {
             do {
                 try FIRAuth.auth()?.signOut()
+                return true
             } catch {
                 return false
             }

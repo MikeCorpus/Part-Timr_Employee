@@ -35,7 +35,7 @@ class SignInVC: UIViewController {
                     print("LOGIN SUCCESSFUL!")
                     //login goes here
                     
-                   // self.performSegue(withIdentifier: self.EMPLOYEE_SEGUE, sender: nil)
+                    self.performSegue(withIdentifier: self.EMPLOYEE_SEGUE, sender: nil)
                     
                     //test change
                     
@@ -69,8 +69,11 @@ class SignInVC: UIViewController {
                     self.alertTheUser(title: "Problem with Creating A New User", message: message!)
                 } else {
                     print("CREATING A NEW USER COMPLETE")
+                    self.performSegue(withIdentifier: self.EMPLOYEE_SEGUE, sender: nil)
                     
-                    self.alertTheUser(title: "Signing In Complete", message: "Creating the user successful")                }
+                    //self.alertTheUser(title: "Signing In Complete", message: "Creating the user successful")
+                
+                }
             
             })
             

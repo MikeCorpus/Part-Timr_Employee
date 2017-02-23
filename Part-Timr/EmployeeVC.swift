@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class EmployeeVC: UIViewController {
+class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -20,10 +20,17 @@ class EmployeeVC: UIViewController {
     }
     
     
+    
+    @IBAction func CancelTask(_ sender: Any) {
+    }
+    
     @IBAction func logOut(_ sender: Any) {
         
         if AuthProvider.Instance.logOut() {
             dismiss(animated: true, completion: nil)
+            
+            print("LOGOUT SUCCESSFUL")
+            
         } else {
             self.alertTheUser(title: "Problem logging out", message: "Please try again later.")
         }

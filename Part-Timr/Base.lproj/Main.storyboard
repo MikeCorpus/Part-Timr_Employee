@@ -91,6 +91,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="ypj-MC-KHg" id="Y9v-g9-Tcl"/>
                         <outlet property="passwordTextField" destination="sex-Tc-pi1" id="kke-h6-n2V"/>
+                        <segue destination="msM-IR-ebA" kind="show" identifier="EmployeeVC" id="KRn-7K-zRu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -133,6 +134,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WX-qh-mzr">
                                 <rect key="frame" x="120" y="370" width="80" height="30"/>
                                 <state key="normal" title="Cancel task"/>
+                                <connections>
+                                    <action selector="CancelTask:" destination="msM-IR-ebA" eventType="touchUpInside" id="Sqk-3W-VW9"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
