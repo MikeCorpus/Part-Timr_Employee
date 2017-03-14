@@ -12,13 +12,13 @@ class Constants {
     
     // for the DBProvider
     
-    static let PARTTIMR = "parttimr"
+    static let PARTIMR = "partimr"
     static let EMAIL = "email"
     static let PASSWORD = "password"
     static let DATA = "data"
     static let isEmployer = "isEmployer"
-    static let PARTTIMR_REQUEST = "Parttimr_Request"
-    static let PARTTIMR_ACCEPTED = "Parttimr_Accepted"
+    static let PARTIMR_REQUEST = "Partimr_Request"
+    static let PARTIMR_ACCEPTED = "Partimr_Accepted"
     
     
     // Partimr Handler

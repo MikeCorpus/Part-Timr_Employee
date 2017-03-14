@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PartTimrController {
+class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -24,9 +24,6 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         super.viewDidLoad()
         initializeLocationManager()
       
-        HireHandler.Instance.delegate = self
-        HireHandler.Instance.observeMessagesForEmployee()
-        
     }
     
     private func initializeLocationManager() {
@@ -56,12 +53,15 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
     }
     
+<<<<<<< HEAD
     func acceptPartTimr(lat: Double, long: Double) {
         if !acceptedPartTimrRequest {
             partTimrRequest(title: "Part-Timr Request", message: "You have a request at this location Lat \(lat), Long: \(long)", requestAlive: true)
         }
     }
     
+=======
+>>>>>>> parent of efeb6f2... inform the driver when the "hire" button from the employer's end is pressed
     @IBAction func CancelTask(_ sender: Any) {
     }
     
@@ -73,37 +73,12 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             print("LOGOUT SUCCESSFUL")
             
         } else {
-            partTimrRequest(title: "Could Not Logout", message: "We could not logout at the moment, please try again later", requestAlive: false)
-            
+            self.alertTheUser(title: "Problem logging out", message: "Please try again later.")
         }
         
     }
     
-    
-    
-    private func partTimrRequest(title: String, message: String, requestAlive: Bool) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        if requestAlive {
-            let accept = UIAlertAction(title: "Accept", style: .default, handler: { (alertAction: UIAlertAction) in })
-            
-            let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-            
-            alert.addAction(accept)
-            alert.addAction(cancel)
-            
-        } else {
-            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alert.addAction(ok)
-            
-        }
-        
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
-    private func alertTheUser(title: String, message: String)  {
+    func alertTheUser(title: String, message: String)  {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction (UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated:true, completion: nil)
