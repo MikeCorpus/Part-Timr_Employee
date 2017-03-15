@@ -53,18 +53,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
     }
     
-<<<<<<< HEAD
-<<<<<<< HEAD
-    func acceptPartTimr(lat: Double, long: Double) {
-        if !acceptedPartTimrRequest {
-            partTimrRequest(title: "Part-Timr Request", message: "You have a request at this location Lat \(lat), Long: \(long)", requestAlive: true)
-        }
-    }
-    
-=======
->>>>>>> parent of efeb6f2... inform the driver when the "hire" button from the employer's end is pressed
-=======
->>>>>>> parent of efeb6f2... inform the driver when the "hire" button from the employer's end is pressed
+
     @IBAction func CancelTask(_ sender: Any) {
     }
     
