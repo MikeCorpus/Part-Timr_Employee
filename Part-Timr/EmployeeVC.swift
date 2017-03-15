@@ -17,6 +17,9 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     private var userLocation: CLLocationCoordinate2D?
     //    private var hirerLocation: CLLocationCoordinate2D?
     
+    private var acceptedParttimrRequest = false
+    private var parttimrCanceled = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeLocationManager()
@@ -54,7 +57,10 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     }
     
     func acceptPartTimr(lat: Double, long: Double) {
-        partTimrRequest(title: "Part-Timr Request", message: "You have a request at this location Lat \(lat), Long: \(long)", requestAlive: true)
+        if !acceptedParttimrRequest {
+            partTimrRequest(title: "Part-Timr Request", message: "You have a request at this location Lat \(lat), Long: \(long)", requestAlive: true)
+        }
+        
     }
     
     @IBAction func CancelTask(_ sender: Any) {
