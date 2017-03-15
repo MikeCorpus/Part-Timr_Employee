@@ -22,7 +22,15 @@ class DBProvider {
     }
     
     var employeeRef: FIRDatabaseReference {
-        return dbRef.child(Constants.PARTIMR)
+        return dbRef.child(Constants.PARTTIMR)
+    }
+    
+    var requestRef: FIRDatabaseReference {
+        return dbRef.child(Constants.PARTTIMR_REQUEST)
+    }
+    
+    var requestAcceptedRef: FIRDatabaseReference {
+        return dbRef.child(Constants.PARTTIMR_ACCEPTED)
     }
     
     func saveUser(withID: String, email: String, password: String)  {
