@@ -13,6 +13,8 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
 
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var acceptParttimrBtn: UIButton!
+    
     private var locationManager = CLLocationManager()
     private var userLocation: CLLocationCoordinate2D?
     //    private var hirerLocation: CLLocationCoordinate2D?
@@ -63,6 +65,17 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
     }
     
+    func employerCanceledParttimr() {
+        if !parttimrCanceled {
+            //canceles Part-Timr request from employee's perspective
+            self.acceptedParttimrRequest = false
+            self.acceptParttimrBtn.isHidden = true
+            
+            partTimrRequest(title: "Canceled", message: "The Employer Has Canceled Your Request", requestAlive: false)
+        }
+        
+    }
+    
     @IBAction func CancelTask(_ sender: Any) {
     }
     
@@ -87,7 +100,18 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         if requestAlive {
-            let accept = UIAlertAction(title: "Accept", style: .default, handler: { (alertAction: UIAlertAction) in })
+            let accept = UIAlertAction(title: "Accept", style: .default, handler: { (alertAction: UIAlertAction) in
+            
+                self.acceptedParttimrRequest = true
+                self.acceptParttimrBtn.isHidden = false
+            
+                //inform that we accepted the Parttimr
+                
+                HireHandler.Instance.parttimrAccepted(lat: Double(self.userLocation!.latitude), long: Double(self.userLocation!.longitude))
+            
+                
+            })
+            
             
             let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
             

@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 protocol PartTimrController: class {
     func acceptPartTimr(lat: Double, long: Double)
+    func employerCanceledParttimr()
 }
 
 class HireHandler {
@@ -41,9 +42,47 @@ class HireHandler {
                         
                     }
                 }
+                if let name = data[Constants.NAME] as? String {
+                    self.employer = name
+                    
+                }
             }
+            //EMPLOYER CANCELLED 
+            
+            DBProvider.Instance.requestRef.observe(FIRDataEventType.childRemoved, with: { (snapshot: FIRDataSnapshot) in
+                
+                if let data = snapshot.value as? NSDictionary {
+                    if let name = data[Constants.NAME] as? String {
+                        if name == self.employer {
+                            
+                           self.employer = ""
+                            self.delegate?.employerCanceledParttimr()
+                            
+                            
+                        }
+                    }
+                }
+            
+            })
         }
         
+    } //Observe messages for employee
+    
+    func parttimrAccepted(lat: Double, long: Double) {
+        let data: Dictionary<String, Any> = [Constants.LATITUDE: lat, Constants.LONGTITUDE: long]
+        
+        DBProvider.Instance.requestAcceptedRef.childByAutoId().setValue(data)
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+

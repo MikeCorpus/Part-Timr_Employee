@@ -131,7 +131,7 @@
                                     <constraint firstAttribute="width" secondItem="ykm-fi-Mdb" secondAttribute="height" multiplier="320:261" id="izY-KI-6fX"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WX-qh-mzr">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WX-qh-mzr">
                                 <rect key="frame" x="120" y="370" width="80" height="30"/>
                                 <state key="normal" title="Cancel task"/>
                                 <connections>
@@ -152,6 +152,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="acceptParttimrBtn" destination="4WX-qh-mzr" id="2sg-ck-SO6"/>
                         <outlet property="mapView" destination="ykm-fi-Mdb" id="kQI-HR-bdZ"/>
                     </connections>
                 </viewController>

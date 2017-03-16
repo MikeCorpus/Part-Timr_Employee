@@ -35,9 +35,15 @@ class SignInVC: UIViewController {
                     print("LOGIN SUCCESSFUL!")
                     //login goes here
                     
+                    HireHandler.Instance.employee = self.emailTextField.text!
+                    
+                    self.emailTextField.text = ""
+                    self.passwordTextField.text = ""
+                    
+                    
                     self.performSegue(withIdentifier: self.EMPLOYEE_SEGUE, sender: nil)
                     
-                    //test change
+                    
                     
                     
                 }
