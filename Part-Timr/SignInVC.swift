@@ -7,22 +7,23 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignInVC: UIViewController {
     
     private let EMPLOYEE_SEGUE = "EmployeeVC"
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func loginButton(_ sender: Any) {
+    
+    @IBAction func loginButton(_ sender: AnyObject) {
         
         if emailTextField.text != "" && passwordTextField.text != "" {
             
@@ -52,9 +53,9 @@ class SignInVC: UIViewController {
             
         } else {
             
-        let alertTheUser = UIAlertController(title: "Error", message: "Username and Password cannot be left empty.", preferredStyle: .alert)
-        alertTheUser.addAction(UIAlertAction(title: "OK", style:. default, handler: nil))
-        present(alertTheUser, animated:true, completion: nil)
+            let alertTheUser = UIAlertController(title: "Error", message: "Username and Password cannot be left empty.", preferredStyle: .alert)
+            alertTheUser.addAction(UIAlertAction(title: "OK", style:. default, handler: nil))
+            present(alertTheUser, animated:true, completion: nil)
         }
     }
     
@@ -64,13 +65,13 @@ class SignInVC: UIViewController {
         present(alert, animated:true, completion: nil)
     }
     
-   
+    
     @IBAction func signupButton(_ sender: Any)
     {
         if emailTextField.text != "" && passwordTextField.text != "" {
             
             AuthProvider.Instance.signUp(withEmail: emailTextField.text!, password: passwordTextField.text!, loginHandler: { (message) in
-            
+                
                 if message != nil {
                     self.alertTheUser(title: "Problem with Creating A New User", message: message!)
                 } else {
@@ -78,9 +79,9 @@ class SignInVC: UIViewController {
                     self.performSegue(withIdentifier: self.EMPLOYEE_SEGUE, sender: nil)
                     
                     //self.alertTheUser(title: "Signing In Complete", message: "Creating the user successful")
-                
+                    
                 }
-            
+                
             })
             
         } else {
@@ -89,7 +90,7 @@ class SignInVC: UIViewController {
             present(alertTheUser, animated:true, completion: nil)
             
         }
-
+        
         
         
     }

@@ -10,14 +10,16 @@ import UIKit
 import MapKit
 
 class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, PartTimrController {
-
+    
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var acceptParttimrBtn: UIButton!
     
     private var locationManager = CLLocationManager()
     private var userLocation: CLLocationCoordinate2D?
-    //    private var hirerLocation: CLLocationCoordinate2D?
+    private var hirerLocation: CLLocationCoordinate2D?
+    
+    private var timer = Timer();
     
     private var acceptedParttimrRequest = false
     private var parttimrCanceled = false
@@ -25,7 +27,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeLocationManager()
-      
+        
         HireHandler.Instance.delegate = self
         HireHandler.Instance.observeMessagesForEmployee()
         
@@ -40,6 +42,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        // if we have the coordinates from the manager
         if let location = locationManager.location?.coordinate {
             
             userLocation = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
@@ -48,6 +51,16 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             
             mapView.setRegion(region, animated: true)
             mapView.removeAnnotations(mapView.annotations)
+            
+            if hirerLocation != nil {
+                if acceptedParttimrRequest {
+                    let hirerAnnotation = MKPointAnnotation();
+                    hirerAnnotation.coordinate = hirerLocation!;
+                    hirerAnnotation.title = "Hirer Location";
+                    mapView.addAnnotation(hirerAnnotation);
+                }
+            }
+            
             
             let annotation = MKPointAnnotation()
             annotation.coordinate = userLocation!
@@ -68,6 +81,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     func employerCanceledParttimr() {
         if !parttimrCanceled {
             //canceles Part-Timr request from employee's perspective
+            HireHandler.Instance.cancelParttimrForEmployee()
             self.acceptedParttimrRequest = false
             self.acceptParttimrBtn.isHidden = true
             
@@ -76,12 +90,39 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
     }
     
+    func parttimrCanceledRequest() {
+        acceptedParttimrRequest = false
+        acceptParttimrBtn.isHidden = true
+        timer.invalidate()
+    }
+    
+    func updateEmployersLocation(lat: Double, long: Double) {
+        hirerLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    }
+    
+    func updateParttimrsLocation() {
+        HireHandler.Instance.updateParttimrLocation(lat: userLocation!.latitude, long: userLocation!.longitude)
+    }
+    
     @IBAction func CancelTask(_ sender: Any) {
+        if acceptedParttimrRequest {
+            parttimrCanceled = true
+            acceptParttimrBtn.isHidden = true
+            HireHandler.Instance.cancelParttimrForEmployee()
+            timer.invalidate()
+        }
     }
     
     @IBAction func logOut(_ sender: Any) {
         
         if AuthProvider.Instance.logOut() {
+            
+            if acceptedParttimrRequest {
+                acceptParttimrBtn.isHidden = true
+                HireHandler.Instance.cancelParttimrForEmployee()
+                timer.invalidate()
+            }
+            
             dismiss(animated: true, completion: nil)
             
             print("LOGOUT SUCCESSFUL")
@@ -101,14 +142,16 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         if requestAlive {
             let accept = UIAlertAction(title: "Accept", style: .default, handler: { (alertAction: UIAlertAction) in
-            
+                
                 self.acceptedParttimrRequest = true
                 self.acceptParttimrBtn.isHidden = false
-            
+                
+                self.timer = Timer.scheduledTimer(timeInterval: TimeInterval(10), target: self, selector: #selector(EmployeeVC.updateParttimrsLocation), userInfo: nil, repeats: true);
+                
                 //inform that we accepted the Parttimr
                 
                 HireHandler.Instance.parttimrAccepted(lat: Double(self.userLocation!.latitude), long: Double(self.userLocation!.longitude))
-            
+                
                 
             })
             
@@ -133,7 +176,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         alert.addAction (UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated:true, completion: nil)
     }
-
-
+    
+    
     
 }
