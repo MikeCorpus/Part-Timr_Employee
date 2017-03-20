@@ -14,8 +14,17 @@ class SignInVC: UIViewController {
     private let EMPLOYEE_SEGUE = "EmployeeVC"
     
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    // Next button from email textfield to password textfield
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            passwordTextField.resignFirstResponder()
+        }
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
