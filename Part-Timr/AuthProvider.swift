@@ -1,6 +1,6 @@
 //
 //  AuthProvider.swift
-//  Part-Timr for Employer
+//  Part-Timr
 //
 //  Created by Michael V. Corpus on 04/02/2017.
 //  Copyright © 2017 Michael V. Corpus. All rights reserved.

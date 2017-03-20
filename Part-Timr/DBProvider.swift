@@ -21,7 +21,7 @@ class DBProvider {
         return FIRDatabase.database().reference()
     }
     
-    var employeeRef: FIRDatabaseReference {
+    var parttimrRef: FIRDatabaseReference {
         return dbRef.child(Constants.PARTTIMR)
     }
     
@@ -34,9 +34,9 @@ class DBProvider {
     }
     
     func saveUser(withID: String, email: String, password: String)  {
-        let data: Dictionary<String, Any> = [Constants.EMAIL: email, Constants.PASSWORD: password, Constants.isEmployer: false]
+        let data: Dictionary<String, Any> = [Constants.EMAIL: email, Constants.PASSWORD: password, Constants.isHirer: false]
         
-        employeeRef.child(withID).child(Constants.DATA).setValue(data)
+        parttimrRef.child(withID).child(Constants.DATA).setValue(data)
         
     }
     

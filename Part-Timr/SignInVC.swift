@@ -36,7 +36,7 @@ class SignInVC: UIViewController {
                     print("LOGIN SUCCESSFUL!")
                     //login goes here
                     
-                    HireHandler.Instance.employee = self.emailTextField.text!
+                    HireHandler.Instance.parttimr = self.emailTextField.text!
                     
                     self.emailTextField.text = ""
                     self.passwordTextField.text = ""

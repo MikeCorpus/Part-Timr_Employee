@@ -29,7 +29,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         initializeLocationManager()
         
         HireHandler.Instance.delegate = self
-        HireHandler.Instance.observeMessagesForEmployee()
+        HireHandler.Instance.observeMessagesForParttimr()
         
     }
     
@@ -78,14 +78,14 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
     }
     
-    func employerCanceledParttimr() {
+    func hirerCanceledParttimr() {
         if !parttimrCanceled {
-            //canceles Part-Timr request from employee's perspective
-            HireHandler.Instance.cancelParttimrForEmployee()
+            //canceles Part-Timr request from Hirer's perspective
+            HireHandler.Instance.cancelRequestForParttimr()
             self.acceptedParttimrRequest = false
             self.acceptParttimrBtn.isHidden = true
             
-            partTimrRequest(title: "Canceled", message: "The Employer Has Canceled Your Request", requestAlive: false)
+            partTimrRequest(title: "Canceled", message: "The Hirer Has Canceled Your Request", requestAlive: false)
         }
         
     }
@@ -96,7 +96,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         timer.invalidate()
     }
     
-    func updateEmployersLocation(lat: Double, long: Double) {
+    func updateHirersLocation(lat: Double, long: Double) {
         hirerLocation = CLLocationCoordinate2D(latitude: lat, longitude: long)
     }
     
@@ -108,7 +108,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         if acceptedParttimrRequest {
             parttimrCanceled = true
             acceptParttimrBtn.isHidden = true
-            HireHandler.Instance.cancelParttimrForEmployee()
+            HireHandler.Instance.cancelRequestForParttimr()
             timer.invalidate()
         }
     }
@@ -119,7 +119,7 @@ class EmployeeVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             
             if acceptedParttimrRequest {
                 acceptParttimrBtn.isHidden = true
-                HireHandler.Instance.cancelParttimrForEmployee()
+                HireHandler.Instance.cancelRequestForParttimr()
                 timer.invalidate()
             }
             
