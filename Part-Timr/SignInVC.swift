@@ -47,7 +47,7 @@ class SignInVC: UIViewController {
                     
                     HireHandler.Instance.parttimr = self.emailTextField.text!
                     
-                    self.emailTextField.text = ""
+//                    self.emailTextField.text = ""
                     self.passwordTextField.text = ""
                     
                     
